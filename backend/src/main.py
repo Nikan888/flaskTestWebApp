@@ -33,7 +33,7 @@ def get_tests():
 @app.route('/tests', methods=['POST'])
 def add_test():
     # mount test object
-    posted_test = TestSchema(only=('title', 'description'))\
+    posted_test = TestSchema(only=('name', 'date'))\
         .load(request.get_json())
 
     test = Test(**posted_test.data, created_by="HTTP post request")
