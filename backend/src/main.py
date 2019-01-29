@@ -1,5 +1,7 @@
 # coding=utf-8
 
+from flask_cors import CORS
+
 from flask import Flask, jsonify, request
 
 #import simplejson as json
@@ -11,6 +13,7 @@ from .entities.order import Order, OrderSchema
 
 # creating the Flask application
 app = Flask(__name__)
+CORS(app)
 
 app.debug = True
 
