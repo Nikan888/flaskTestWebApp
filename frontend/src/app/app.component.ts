@@ -1,7 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {TestsApiService} from './tests/tests-api.service';
-import {Test} from './tests/test.model';
+import {EmployeesApiService} from './employees/employees-api.service';
+import {Employee} from './employees/employee.model';
+import {TransactionsApiService} from './transactions/transactions-api.service';
+import {Transaction} from './transactions/transaction.model';
+import {OrdersApiService} from './orders/orders-api.service';
+import {Order} from './orders/order.model';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +14,44 @@ import {Test} from './tests/test.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
-  testsListSubs: Subscription;
-  testsList: Test[];
+  employeesListSubs: Subscription;
+  employeesList: Employee[];
+  transactionsListSubs: Subscription;
+  transactionsList: Transaction[];
+  ordersListSubs: Subscription;
+  ordersList: Order[];
 
-  constructor(private testsApi: TestsApiService) {
+  constructor(private employeesApi: EmployeesApiService,
+    private transactionsApi: TransactionsApiService, private ordersApi: OrdersApiService ) {
   }
 
   ngOnInit() {
-    this.testsListSubs = this.testsApi
-      .getTests()
+    this.employeesListSubs = this.employeesApi
+      .getEmployees()
       .subscribe(res => {
-          this.testsList = res;
+          this.employeesList = res;
+        },
+        console.error
+      );
+    this.transactionsListSubs = this.transactionsApi
+      .getTransactions()
+      .subscribe(res => {
+          this.transactionsList = res;
+        },
+        console.error
+      );
+    this.ordersListSubs = this.ordersApi
+      .getOrders()
+      .subscribe(res => {
+          this.ordersList = res;
         },
         console.error
       );
   }
 
   ngOnDestroy() {
-    this.testsListSubs.unsubscribe();
+    this.employeesListSubs.unsubscribe();
+    this.transactionsListSubs.unsubscribe();
+    this.ordersListSubs.unsubscribe();
   }
 }

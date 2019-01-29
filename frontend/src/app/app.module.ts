@@ -3,7 +3,9 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {TestsApiService} from './tests/tests-api.service';
+import {EmployeesApiService} from './employees/employees-api.service';
+import {TransactionsApiService} from './transactions/transactions-api.service';
+import {OrdersApiService} from './orders/orders-api.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,7 @@ import {TestsApiService} from './tests/tests-api.service';
     BrowserModule,
     HttpClientModule,
   ],
-  providers: [TestsApiService],
+  providers: [EmployeesApiService, TransactionsApiService, OrdersApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
