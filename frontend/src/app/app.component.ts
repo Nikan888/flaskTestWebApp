@@ -1,57 +1,19 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {EmployeesApiService} from './employees/employees-api.service';
-import {Employee} from './employees/employee.model';
-import {TransactionsApiService} from './transactions/transactions-api.service';
-import {Transaction} from './transactions/transaction.model';
-import {OrdersApiService} from './orders/orders-api.service';
-import {Order} from './orders/order.model';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div>
+      <h1>MAIN</h1>
+      <nav>
+        <a routerLink="/employees" routerLinkActive="active">Employees</a>
+        <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+        <a routerLink="/orders" routerLinkActive="active">Orders</a>
+      </nav>
+  
+      <router-outlet></router-outlet>
+    </div>
+  `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'app';
-  employeesListSubs: Subscription;
-  employeesList: Employee[];
-  transactionsListSubs: Subscription;
-  transactionsList: Transaction[];
-  ordersListSubs: Subscription;
-  ordersList: Order[];
-
-  constructor(private employeesApi: EmployeesApiService,
-    private transactionsApi: TransactionsApiService, private ordersApi: OrdersApiService ) {
-  }
-
-  ngOnInit() {
-    this.employeesListSubs = this.employeesApi
-      .getEmployees()
-      .subscribe(res => {
-          this.employeesList = res;
-        },
-        console.error
-      );
-    this.transactionsListSubs = this.transactionsApi
-      .getTransactions()
-      .subscribe(res => {
-          this.transactionsList = res;
-        },
-        console.error
-      );
-    this.ordersListSubs = this.ordersApi
-      .getOrders()
-      .subscribe(res => {
-          this.ordersList = res;
-        },
-        console.error
-      );
-  }
-
-  ngOnDestroy() {
-    this.employeesListSubs.unsubscribe();
-    this.transactionsListSubs.unsubscribe();
-    this.ordersListSubs.unsubscribe();
-  }
-}
+export class AppComponent { }
