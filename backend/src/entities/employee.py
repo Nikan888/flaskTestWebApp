@@ -21,3 +21,11 @@ class EmployeeSchema(Schema):
 	created_at = fields.DateTime()
 	updated_at = fields.DateTime()
 	last_updated_by = fields.Str()
+
+class EmployeeBalanceSchema(Schema):
+	id = fields.Number()
+	name = fields.Str()
+	balance = fields.Decimal()
+	created_at = fields.DateTime()
+	updated_at = fields.DateTime()
+	last_updated_by = fields.Str()

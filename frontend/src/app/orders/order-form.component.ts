@@ -34,7 +34,7 @@ export class OrderFormComponent /*implements OnInit*/ {
     description: '',
     withdraw: 0,
     invest: 0,
-    employee: new Employee(''),
+    employee: new Employee('', 0),
     transaction: new Transaction('', new Date()),
   };
 

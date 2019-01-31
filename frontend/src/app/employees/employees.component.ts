@@ -1,40 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Employee} from './employee.model';
 import {EmployeesApiService} from './employees-api.service';
 
 @Component({
-  selector: 'employees',
-  template: `
-    <div>
-      <h2>Here are the employees created so far: </h2>
-      <button routerLink="/new-employee">New employee</button>
-      <ul>
-        <li *ngFor="let employee of employeesList">
-          ({{employee.id}}) {{employee.name}}
-        </li>
-      </ul>
-    </div>
-  `
+  selector: 'employee',
+  templateUrl: './employee.component.html'
 })
-export class EmployeesComponent implements OnInit, OnDestroy {
-  employeesListSubs: Subscription;
-  employeesList: Employee[];
+export class EmployeesComponent implements OnInit {
+  @Input() employee: Employee;
 
-  constructor(private employeesApi: EmployeesApiService) {
+  constructor() {
+
   }
 
   ngOnInit() {
-    this.employeesListSubs = this.employeesApi
-      .getEmployees()
-      .subscribe(res => {
-          this.employeesList = res;
-        },
-        console.error
-      );
+    
   }
 
-  ngOnDestroy() {
-    this.employeesListSubs.unsubscribe();
-  }
 }

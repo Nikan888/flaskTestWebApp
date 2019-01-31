@@ -4,10 +4,12 @@ from flask_cors import CORS
 
 from flask import Flask, jsonify, request
 
+from sqlalchemy import func, text
+
 #import simplejson as json
 
 from .entities.entity import Session, engine, Base
-from .entities.employee import Employee, EmployeeSchema
+from .entities.employee import Employee, EmployeeSchema, EmployeeBalanceSchema
 from .entities.transaction import Transaction, TransactionSchema
 from .entities.order import Order, OrderSchema
 
@@ -21,7 +23,7 @@ app.debug = True
 Base.metadata.create_all(engine)
 
 
-@app.route('/employees')
+@app.route('/api/employees')
 def get_employees():
     # fetching from the database
     session = Session()
@@ -36,7 +38,7 @@ def get_employees():
     return jsonify(employees.data)
 
 
-@app.route('/employees', methods=['POST'])
+@app.route('/api/employees', methods=['POST'])
 def add_employee():
     # mount employee object
     posted_employee = EmployeeSchema().load(request.get_json())
@@ -53,7 +55,7 @@ def add_employee():
     session.close()
     return jsonify(new_employee), 201
 
-@app.route('/transactions')
+@app.route('/api/transactions')
 def get_transactions():
     # fetching from the database
     session = Session()
@@ -68,7 +70,7 @@ def get_transactions():
     return jsonify(transactions.data)
 
 
-@app.route('/transactions', methods=['POST'])
+@app.route('/api/transactions', methods=['POST'])
 def add_transaction():
     # mount transaction object
     posted_transaction = TransactionSchema().load(request.get_json())
@@ -85,7 +87,7 @@ def add_transaction():
     session.close()
     return jsonify(new_transaction), 201
 
-@app.route('/orders')
+@app.route('/api/orders')
 def get_orders():
     # fetching from the database
     session = Session()
@@ -100,7 +102,7 @@ def get_orders():
     return jsonify(orders.data)
 
 
-@app.route('/orders', methods=['POST'])
+@app.route('/api/orders', methods=['POST'])
 def add_order():
     # mount order object
     posted_order = OrderSchema().load(request.get_json())
@@ -116,3 +118,43 @@ def add_order():
     new_order = OrderSchema().dump(order).data
     session.close()
     return jsonify(new_order), 201
+
+@app.route('/api/orders/transactionOrders/<int:transaction_id>')
+def get_transactionOrders(transaction_id):
+    # fetching from the database
+    session = Session()
+    order_objects = session.query(Order).join(Employee).join(Transaction).filter(Transaction.id == transaction_id).all()
+
+    if order_objects is not None:
+        # transforming into JSON-serializable objects
+        schema = OrderSchema(many=True)
+        orders = schema.dump(order_objects)
+
+        # serializing as JSON
+        session.close()
+        return jsonify(orders.data)
+
+    else:
+        abort(404, 'Transaction not found for ID: {transaction_id}'.format(transaction_id = transaction_id))
+
+@app.route('/api/employees/employeeBalance')
+def get_employeeBalance():
+    # fetching from the database
+    session = Session()
+    sql = text('select (sum(invest) - sum(withdraw)) as balance, employees.name \
+    from employees inner join orders on employees.id = orders.employee_id \
+    group by employees.id')
+    employee_objects = session.execute(sql)
+    #order_objects = session.query(Order).filter(Order.employee_id == employee_id).all()
+
+    if employee_objects is not None:
+        # transforming into JSON-serializable objects
+        schema = EmployeeBalanceSchema(many=True)
+        employees = schema.dump(employee_objects)
+
+        # serializing as JSON
+        session.close()
+        return jsonify(employees.data)
+
+    else:
+        abort(404)

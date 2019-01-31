@@ -19,7 +19,7 @@ export class OrdersApiService {
   // GET list
   getOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(`${API_URL}/orders`)
+      .get<Order[]>(`${API_URL}/api/orders`)
       .pipe(catchError(this.handleError));
   }
 
@@ -27,7 +27,7 @@ export class OrdersApiService {
   saveOrder(order: Order): Observable<any> {
     const headers = new HttpHeaders({'Content-Type' : 'application/json'});
     return this.http
-      .post(`${API_URL}/orders`, order, {headers})
+      .post(`${API_URL}/api/orders`, order, {headers})
       //.post(`${API_URL}/orders`, order)
       .pipe(catchError(this.handleError));
   }

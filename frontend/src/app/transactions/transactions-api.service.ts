@@ -19,7 +19,7 @@ export class TransactionsApiService {
   // GET list
   getTransactions(): Observable<Transaction[]> {
     return this.http
-      .get<Transaction[]>(`${API_URL}/transactions`)
+      .get<Transaction[]>(`${API_URL}/api/transactions`)
       .pipe(catchError(this.handleError));
   }
 
@@ -27,7 +27,7 @@ export class TransactionsApiService {
   saveTransaction(transaction: Transaction): Observable<any> {
     const headers = new HttpHeaders({'Content-Type' : 'application/json'});
     return this.http
-      .post(`${API_URL}/transactions`, transaction, {headers})
+      .post(`${API_URL}/api/transactions`, transaction, {headers})
       //.post(`${API_URL}/transactions`, transaction)
       .pipe(catchError(this.handleError));
   }

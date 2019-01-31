@@ -19,7 +19,14 @@ export class EmployeesApiService {
   // GET list
   getEmployees(): Observable<Employee[]> {
     return this.http
-      .get<Employee[]>(`${API_URL}/employees`)
+      .get<Employee[]>(`${API_URL}/api/employees`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Get list (with balance value)
+  getEmployeesBalance(): Observable<Employee[]>{
+    return this.http
+      .get<Employee[]>(`${API_URL}/api/employees/employeeBalance`)
       .pipe(catchError(this.handleError));
   }
 
@@ -27,7 +34,7 @@ export class EmployeesApiService {
   saveEmployee(employee: Employee): Observable<any> {
     const headers = new HttpHeaders({'Content-Type' : 'application/json'});
     return this.http
-      .post(`${API_URL}/employees`, employee, {headers})
+      .post(`${API_URL}/api/employees`, employee, {headers})
       //.post(`${API_URL}/employees`, employee)
       .pipe(catchError(this.handleError));
   }

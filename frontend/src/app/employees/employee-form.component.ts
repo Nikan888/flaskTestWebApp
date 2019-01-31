@@ -17,6 +17,7 @@ import {Router} from "@angular/router";
 export class EmployeeFormComponent {
   employee = {
     name: '',
+    balance: 0,
   };
 
   constructor(private employeesApi: EmployeesApiService, private router: Router) { }

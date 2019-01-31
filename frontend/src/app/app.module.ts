@@ -14,26 +14,36 @@ import {TransactionFormComponent} from './transactions/transaction-form.componen
 import {TransactionsComponent} from './transactions/transaction.component';
 import {OrderFormComponent} from './orders/order-form.component';
 import {OrdersComponent} from './orders/order.component';
+import { TransactionsListComponent } from './transactions/transactions-list/transactions-list.component';
+import { OrderListComponent } from './orders/order-list/order-list.component';
+import { TransactionDetailComponent } from './transactions/transaction-detail/transaction-detail.component';
+import { EmployeesListComponent } from './employees/employees-list/employees-list.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', component: EmployeesComponent},
+  { path: '', component: HomeComponent},
   { path: 'new-employee', component: EmployeeFormComponent },
-  { path: 'employees', component: EmployeesComponent},
+  { path: 'employees', component: EmployeesListComponent},
   { path: 'new-transaction', component: TransactionFormComponent },
-  { path: 'transactions', component: TransactionsComponent},
+  { path: 'transactions', component: TransactionsListComponent},
   { path: 'new-order', component: OrderFormComponent },
-  { path: 'orders', component: OrdersComponent},
+  { path: 'orders', component: OrderListComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     EmployeeFormComponent,
     EmployeesComponent,
     TransactionFormComponent,
     TransactionsComponent,
     OrderFormComponent,
     OrdersComponent,
+    TransactionsListComponent,
+    OrderListComponent,
+    TransactionDetailComponent,
+    EmployeesListComponent,
   ],
   imports: [
     BrowserModule,
