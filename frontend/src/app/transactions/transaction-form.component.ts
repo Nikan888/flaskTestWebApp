@@ -39,7 +39,7 @@ export class TransactionFormComponent /*implements OnInit*/ {
 
   saveTransaction() {
     this.transactionsApi
-      .saveTransaction(this.transaction)
+      .addTransaction(this.transaction)
       .subscribe(
         () => this.router.navigate(['/']),
         error => alert(error.message)

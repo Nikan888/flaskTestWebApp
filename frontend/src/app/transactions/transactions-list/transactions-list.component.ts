@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Transaction } from '../transaction.model';
 import { TransactionsApiService } from '../transactions-api.service';
+import { TransactionDetailComponent } from '../transaction-detail/transaction-detail.component';
+import { Order } from 'src/app/orders/order.model';
 
 @Component({
   selector: 'app-transactions-list',
@@ -9,6 +11,7 @@ import { TransactionsApiService } from '../transactions-api.service';
 })
 export class TransactionsListComponent implements OnInit {
   transactions: Transaction[];
+  details: Order[];
 
   constructor(private transactionsService: TransactionsApiService) { }
 
@@ -20,4 +23,17 @@ export class TransactionsListComponent implements OnInit {
     );
   }
 
+  add(name: string, date: Date): void {
+    name = name.trim();
+    if (!name || !date) { return; }
+    this.transactionsService.addTransaction({ name } as Transaction)
+      .subscribe(transaction => {
+        this.transactions.push(transaction);
+      });
+  }
+
+  delete(transaction: Transaction): void {
+    this.transactions = this.transactions.filter(h => h !== transaction);
+    this.transactionsService.deleteTransaction(transaction).subscribe();
+  }
 }

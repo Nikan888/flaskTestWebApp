@@ -6,6 +6,10 @@ import { filter, map, catchError } from 'rxjs/operators';
 import {API_URL} from '../env';
 import {Employee} from './employee.model';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class EmployeesApiService {
 
@@ -30,12 +34,25 @@ export class EmployeesApiService {
       .pipe(catchError(this.handleError));
   }
 
-  // POST
-  saveEmployee(employee: Employee): Observable<any> {
-    const headers = new HttpHeaders({'Content-Type' : 'application/json'});
-    return this.http
-      .post(`${API_URL}/api/employees`, employee, {headers})
-      //.post(`${API_URL}/employees`, employee)
+  /** POST: add a new employee to the server */
+  addEmployee(employee: Employee): Observable<any> {
+    return this.http.post<Employee>(`${API_URL}/api/employees`, employee, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  /** DELETE: delete the employee from the server */
+  deleteEmployee(employee: Employee | number): Observable<Employee> {
+    const id = typeof employee === 'number' ? employee : employee._id;
+    const url = `${API_URL}/api/employees/${id}`;
+
+    return this.http.delete<Employee>(url, httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  /** PUT: update the employee on the server */
+  updateEmployee (employee: Employee): Observable<any> {
+    return this.http.put(`${API_URL}/api/employees`, employee, httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 }

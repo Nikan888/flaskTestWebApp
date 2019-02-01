@@ -28,7 +28,7 @@ export class EmployeeFormComponent {
 
   saveEmployee() {
     this.employeesApi
-      .saveEmployee(this.employee)
+      .addEmployee(this.employee)
       .subscribe(
         () => this.router.navigate(['/']),
         error => alert(error.message)

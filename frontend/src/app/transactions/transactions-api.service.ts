@@ -6,6 +6,10 @@ import { filter, map, catchError } from 'rxjs/operators';
 import {API_URL} from '../env';
 import {Transaction} from './transaction.model';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class TransactionsApiService {
 
@@ -23,12 +27,25 @@ export class TransactionsApiService {
       .pipe(catchError(this.handleError));
   }
 
-  // POST
-  saveTransaction(transaction: Transaction): Observable<any> {
-    const headers = new HttpHeaders({'Content-Type' : 'application/json'});
-    return this.http
-      .post(`${API_URL}/api/transactions`, transaction, {headers})
-      //.post(`${API_URL}/transactions`, transaction)
+  /** POST: add a new transaction to the server */
+  addTransaction(transaction: Transaction): Observable<any> {
+    return this.http.post<Transaction>(`${API_URL}/api/transactions`, transaction, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  /** DELETE: delete the transaction from the server */
+  deleteTransaction(transaction: Transaction | number): Observable<Transaction> {
+    const id = typeof transaction === 'number' ? transaction : transaction._id;
+    const url = `${API_URL}/api/transactions/${id}`;
+
+    return this.http.delete<Transaction>(url, httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  /** PUT: update the transaction on the server */
+  updateTransaction (transaction: Transaction): Observable<any> {
+    return this.http.put(`${API_URL}/api/transactions`, transaction, httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 }

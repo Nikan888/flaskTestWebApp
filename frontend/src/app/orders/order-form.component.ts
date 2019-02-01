@@ -62,7 +62,7 @@ export class OrderFormComponent /*implements OnInit*/ {
 
   saveOrder() {
     this.ordersApi
-      .saveOrder(this.order)
+      .addOrder(this.order)
       .subscribe(
         () => this.router.navigate(['/']),
         error => alert(error.message)
