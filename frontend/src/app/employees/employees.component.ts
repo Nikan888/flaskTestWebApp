@@ -19,8 +19,4 @@ export class EmployeesComponent implements OnInit {
     
   }
 
-  delete(employeeID: number): void {
-    this.employeeService.deleteEmployee(employeeID).subscribe();
-  }
-
 }

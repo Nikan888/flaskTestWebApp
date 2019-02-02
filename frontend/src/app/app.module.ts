@@ -20,10 +20,6 @@ import { TransactionDetailComponent } from './transactions/transaction-detail/tr
 import { EmployeesListComponent } from './employees/employees-list/employees-list.component';
 import { HomeComponent } from './home/home.component';
 
-import {
-  MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule
-} from '@angular/material';
-
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'new-employee', component: EmployeeFormComponent },
@@ -56,7 +52,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
     ),
-    MatInputModule,
   ],
   providers: [EmployeesApiService, TransactionsApiService, OrdersApiService],
   bootstrap: [AppComponent]

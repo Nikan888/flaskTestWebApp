@@ -21,8 +21,4 @@ export class TransactionsComponent implements OnInit {
   ngOnInit() {
     
   }
-
-  delete(transactionID: number): void {
-    this.transactionService.deleteTransaction(transactionID).subscribe();
-  }
 }
