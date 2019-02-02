@@ -2,7 +2,9 @@
     <h2>New transaction</h2>
     <label for="transaction-name">Name</label>
     <input id="transaction-name" (keyup)="updateName($event)">
+    <br><br>
     <label for="transaction-date">Date</label>
     <input id="transaction-date" (keyup)="updateDate($event)">
+    <br><br>
     <button (click)="saveTransaction()">Save transaction</button>
 </div>

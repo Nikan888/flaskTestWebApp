@@ -1,0 +1,19 @@
+<div>
+    <h2>New order</h2>
+    <label for="order-description">Description</label>
+    <input id="order-description" (keyup)="updateDescription($event)">
+    <br><br>
+    <label for="order-withdraw">Withdraw</label>
+    <input id="order-withdraw" (keyup)="updateWithdraw($event)">
+    <br><br>
+    <label for="order-invest">Invest</label>
+    <input id="order-invest" (keyup)="updateInvest($event)">
+    <br><br>
+    <label for="order-employee">Employee</label>
+    <input id="order-employee" (keyup)="updateEmployee($event)">
+    <br><br>
+    <label for="order-transaction">Transaction</label>
+    <input id="order-transaction" (keyup)="updateTransaction($event)">
+    <br><br>
+    <button (click)="saveOrder()">Save order</button>
+</div>

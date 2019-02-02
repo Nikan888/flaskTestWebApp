@@ -11,13 +11,13 @@ import { InvokeFunctionExpr } from '@angular/compiler';
   styleUrls: ['./transaction-detail.component.css']
 })
 export class TransactionDetailComponent implements OnInit {
-  @Input() details: Order[]
+  details: Order[]
 
   constructor(private ordersService: OrdersApiService,
     private route: ActivatedRoute,) { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.paramMap.get('transaction.id');
+    const id = +this.route.snapshot.paramMap.get('id');
     this.ordersService.getTransactionOrders(id).subscribe(
       (data: Order[]) => {
         this.details = data;

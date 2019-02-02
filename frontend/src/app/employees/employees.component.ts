@@ -5,17 +5,22 @@ import {EmployeesApiService} from './employees-api.service';
 
 @Component({
   selector: 'employee',
-  templateUrl: './employee.component.html'
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
 })
 export class EmployeesComponent implements OnInit {
   @Input() employee: Employee;
 
-  constructor() {
+  constructor(private employeeService: EmployeesApiService) {
 
   }
 
   ngOnInit() {
     
+  }
+
+  delete(employeeID: number): void {
+    this.employeeService.deleteEmployee(employeeID).subscribe();
   }
 
 }

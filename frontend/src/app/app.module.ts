@@ -20,6 +20,10 @@ import { TransactionDetailComponent } from './transactions/transaction-detail/tr
 import { EmployeesListComponent } from './employees/employees-list/employees-list.component';
 import { HomeComponent } from './home/home.component';
 
+import {
+  MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule
+} from '@angular/material';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'new-employee', component: EmployeeFormComponent },
@@ -28,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'transactions', component: TransactionsListComponent},
   { path: 'new-order', component: OrderFormComponent },
   { path: 'orders', component: OrderListComponent},
+  { path: 'details/:id', component: TransactionDetailComponent},
 ];
 
 @NgModule({
@@ -51,6 +56,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
     ),
+    MatInputModule,
   ],
   providers: [EmployeesApiService, TransactionsApiService, OrdersApiService],
   bootstrap: [AppComponent]

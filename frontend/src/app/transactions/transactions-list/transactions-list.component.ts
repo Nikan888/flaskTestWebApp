@@ -11,7 +11,6 @@ import { Order } from 'src/app/orders/order.model';
 })
 export class TransactionsListComponent implements OnInit {
   transactions: Transaction[];
-  details: Order[];
 
   constructor(private transactionsService: TransactionsApiService) { }
 
@@ -26,14 +25,9 @@ export class TransactionsListComponent implements OnInit {
   add(name: string, date: Date): void {
     name = name.trim();
     if (!name || !date) { return; }
-    this.transactionsService.addTransaction({ name } as Transaction)
+    this.transactionsService.addTransaction({ name, date } as Transaction)
       .subscribe(transaction => {
         this.transactions.push(transaction);
       });
-  }
-
-  delete(transaction: Transaction): void {
-    this.transactions = this.transactions.filter(h => h !== transaction);
-    this.transactionsService.deleteTransaction(transaction).subscribe();
   }
 }

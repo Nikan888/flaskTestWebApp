@@ -55,6 +55,15 @@ def add_employee():
     session.close()
     return jsonify(new_employee), 201
 
+@app.route('/api/employees/<employeeId>', methods=['DELETE'])
+def delete_employee(employeeId):
+    session = Session()
+    employee = session.query(Employee).filter_by(id=employeeId).first()
+    session.delete(employee)
+    session.commit()
+    session.close()
+    return '', 201
+
 @app.route('/api/transactions')
 def get_transactions():
     # fetching from the database
@@ -87,6 +96,15 @@ def add_transaction():
     session.close()
     return jsonify(new_transaction), 201
 
+@app.route('/api/transactions/<int:transactionId>', methods=['DELETE'])
+def delete_transaction(transactionId):
+    session = Session()
+    transaction = session.query(Transaction).filter_by(id=transactionId).first()
+    session.delete(transaction)
+    session.commit()
+    session.close()
+    return '', 201
+
 @app.route('/api/orders')
 def get_orders():
     # fetching from the database
@@ -118,6 +136,15 @@ def add_order():
     new_order = OrderSchema().dump(order).data
     session.close()
     return jsonify(new_order), 201
+
+@app.route('/api/orders/<orderId>', methods=['DELETE'])
+def delete_order(orderId):
+    session = Session()
+    order = session.query(Order).filter_by(id=orderId).first()
+    session.delete(order)
+    session.commit()
+    session.close()
+    return '', 201
 
 @app.route('/api/orders/transactionOrders/<int:transaction_id>')
 def get_transactionOrders(transaction_id):

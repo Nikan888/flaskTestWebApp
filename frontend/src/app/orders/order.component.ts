@@ -9,13 +9,18 @@ import {OrdersApiService} from './orders-api.service';
 })
 export class OrdersComponent implements OnInit {
   @Input() order: Order;
+  // @Input() orders: Order[];
 
-  constructor() {
+  constructor(private orderService: OrdersApiService) {
 
   }
 
   ngOnInit() {
     
+  }
+
+  delete(orderID: number): void {
+    this.orderService.deleteOrder(orderID).subscribe();
   }
 
 }

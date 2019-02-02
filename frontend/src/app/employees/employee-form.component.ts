@@ -5,14 +5,7 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'employee-form',
-  template: `
-    <div>
-      <h2>New employee</h2>
-      <label for="employee-name">Name</label>
-      <input id="employee-name" (keyup)="updateName($event)">
-      <button (click)="saveEmployee()">Save employee</button>
-    </div>
-  `
+  templateUrl: './employee-form.component.html'
 })
 export class EmployeeFormComponent {
   employee = {
