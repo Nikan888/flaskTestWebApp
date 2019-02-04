@@ -5,7 +5,8 @@ import {OrdersApiService} from './orders-api.service';
 
 @Component({
   selector: 'order',
-  templateUrl: './order.component.html'
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.css']
 })
 export class OrdersComponent implements OnInit {
   @Input() order: Order;
@@ -19,8 +20,8 @@ export class OrdersComponent implements OnInit {
     
   }
 
-  delete(orderID: number): void {
-    this.orderService.deleteOrder(orderID).subscribe();
+  delete(order: Order): void {
+    this.orderService.deleteOrder(order).subscribe();
   }
 
 }

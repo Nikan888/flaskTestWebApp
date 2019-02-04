@@ -34,7 +34,8 @@ export class TransactionsApiService {
   }
 
   /** DELETE: delete the transaction from the server */
-  deleteTransaction(id: number): Observable<Transaction> {
+  deleteTransaction(transaction: Transaction | number): Observable<Transaction> {
+    const id = typeof transaction === 'number' ? transaction : transaction._id;
     const url = `${API_URL}/api/transactions/${id}`;
 
     return this.http.delete<Transaction>(url, httpOptions)

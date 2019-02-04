@@ -1,5 +1,12 @@
 <div>
-    <ul>
-        <li>({{order.id}}) {{order.description}}, {{order.withdraw}}, {{order.invest}}, {{order.employee.name}}, {{order.transaction.name}}</li>
-    </ul>
+    <td>({{order.id}}) </td>
+    <td>{{order.description}}, </td>
+    <td>{{order.withdraw}}, </td> 
+    <td>{{order.invest}}, </td> 
+    <td>{{order.employee.name}}, </td> 
+    <td>{{order.transaction.name}} </td>
+</div>
+<div>
+    <button class="delete" title="delete order"
+      (click)="delete(order)">DELETE</button>
 </div>

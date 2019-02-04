@@ -1,6 +1,8 @@
-<table>
-    <tr>
-        <td>{{employee.name}}</td>
-        <td>{{employee.balance}}</td>
-    </tr>
-</table>
+<div>
+    <td>{{employee.name}}</td>
+    <td>{{employee.balance}}</td>
+</div>
+<div>
+    <button class="delete" title="delete employee"
+      (click)="delete(employee)">DELETE</button>
+</div>

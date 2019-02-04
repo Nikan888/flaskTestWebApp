@@ -19,4 +19,8 @@ export class EmployeesComponent implements OnInit {
     
   }
 
+  delete(employee: Employee): void {
+    this.employeeService.deleteEmployee(employee).subscribe();
+  }
+
 }

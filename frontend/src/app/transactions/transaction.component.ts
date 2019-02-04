@@ -8,7 +8,8 @@ import { InvokeFunctionExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-transaction',
-  templateUrl: './transaction.component.html'
+  templateUrl: './transaction.component.html',
+  styleUrls: ['./transaction.component.css']
 })
 export class TransactionsComponent implements OnInit {
   @Input() transaction: Transaction;
@@ -20,5 +21,9 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  delete(transaction: Transaction): void {
+    this.transactionService.deleteTransaction(transaction).subscribe();
   }
 }
